@@ -1,0 +1,57 @@
+{% extends './layout.html' %}
+{% block content %}
+<div style='display: flex; flex-wrap: wrap;'>
+  <div style='width: 33%; background-color: #efefef; padding: 10px; color: black' class="form-control">
+    <form method='POST' action='employees/'>
+      <h4>Add new Employee</h4>
+      Employee Email (must be valid email):
+      <input class='form-control' name='email' placeholder='Enter your email'/>
+      Manager:
+      <select class='form-control' name='managerId'>
+        <option value='-1'>None</option>
+        {% for employee in employees %}
+        <option value='{{ employee.id }}'>{{ employee.email }}</option>
+        <!-- My preferred method -->
+        <!-- <option value='{{ employee.id }}'>{{ employee.name }}</option> -->
+        {% endfor %}
+      </select>
+      <br />
+      <button class='btn btn-outline-primary'>Create</button>
+    </form>
+    <br />
+  </div>
+  {% for employee in employees %}
+  <div style='width: 33%; padding: 10px;'>
+    <form method='POST' method='POST' action='/employees/{{employee.id}}?_method=PUT'>
+    <strong>Employee Name:</strong> {{employee.name}}
+    <br />
+    <strong>Email Provider:</strong> {{employee.emailProvider}}
+    <br />
+    <strong>Employee Email:</strong><input class='form-control' name='email' value='{{employee.email}}'>
+    <strong>Manager Email:</strong> 
+      <select class='form-control' name='managerId'>
+        <option value='-1'>None</option>
+        {% for emp in employees %}
+        <option {%if employee.managerId === emp.id%} selected {%endif%} value='{{ emp.id }}'>{{ emp.email }}</option>
+        {% endfor %}
+      </select>
+    <br />
+      <button class='btn btn-primary'>Update</button>
+    </form>
+    <br />
+    <form method='POST' action='/employees/{{employee.id}}?_method=DELETE'>
+        <button class='btn btn-danger'>Delete</button>
+    </form>
+    <br />
+    {{employee.email}} manages:
+    {% for e in employees %}
+    {% if e.managerId === employee.id %}
+    <br />
+    <span class='badge badge-success'>{{e.email}}</span>
+    {%endif%}
+    {% endfor %}
+  </div>
+{% endfor %}
+</div>
+
+{% endblock %} 
