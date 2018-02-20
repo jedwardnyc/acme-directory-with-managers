@@ -12,6 +12,7 @@ const seed = ()=>{
 }
 
 Employee.belongsTo(Employee, {as: 'manager'})
+Employee.hasMany(Employee, {as: 'direct', foreignKey: 'managerId'})
 
 module.exports = {
   sync,

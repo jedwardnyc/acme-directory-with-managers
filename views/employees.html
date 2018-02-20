@@ -10,7 +10,7 @@
       <select class='form-control' name='managerId'>
         <option value='-1'>None</option>
         {% for employee in employees %}
-        <option value='{{ employee.id }}'>{{ employee.email }}</option>
+        <option value='{{ employee.id }}'>{{ employee.name }}</option>
         <!-- My preferred method -->
         <!-- <option value='{{ employee.id }}'>{{ employee.name }}</option> -->
         {% endfor %}
@@ -22,7 +22,7 @@
   </div>
   {% for employee in employees %}
   <div style='width: 33%; padding: 10px;'>
-    <form method='POST' method='POST' action='/employees/{{employee.id}}?_method=PUT'>
+    <form method='POST' action='/employees/{{employee.id}}?_method=PUT'>
     <strong>Employee Name:</strong> {{employee.name}}
     <br />
     <strong>Email Provider:</strong> {{employee.emailProvider}}
@@ -43,12 +43,14 @@
         <button class='btn btn-danger'>Delete</button>
     </form>
     <br />
-    {{employee.email}} manages:
+    {% if employee.direct.length %}
+   {{employee.email}} manages:
+    {% endif %}
     {% for e in employees %}
     {% if e.managerId === employee.id %}
     <br />
     <span class='badge badge-success'>{{e.email}}</span>
-    {%endif%}
+    {% endif %}
     {% endfor %}
   </div>
 {% endfor %}

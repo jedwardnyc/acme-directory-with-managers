@@ -1,4 +1,9 @@
 {% extends './layout.html' %}
 {% block content %}
+{% if err %}
+<div class='alert alert-danger'>
+  {{err}}
+</div>
+{% endif %}
 <h3>Click <a href='/employees'>here </a>to see all users</h3>
 {% endblock %}

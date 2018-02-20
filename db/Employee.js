@@ -6,12 +6,14 @@ const Employee = conn.define('employee', {
     type:Sequelize.STRING,
     validate:{
       isEmail: true
-    }
+    },
+    unique: true
   }
 },{
   getterMethods:{
     name: function(){
-      return this.email.split('@')[0]
+      let name = this.email.split('@')[0]
+      return name.split('.').join(' ')
     },
     emailProvider: function(){
       return this.email.split('@')[1]
