@@ -16,7 +16,6 @@ const Employee = conn.define('employee', {
       return name.toLowerCase().split(/[^a-z]/).map(function(word) {
         return (word.charAt(0).toUpperCase() + word.slice(1));
       }).join(' ');
-      // return name.split(/[^A-Za-z]/).join(' ')
     },
     emailProvider: function(){
       return this.email.split('@')[1]

@@ -2,25 +2,6 @@ const router = require('express').Router();
 const db = require('../db');
 const  { Employee }  = db.models;
 
-// router.use((req,res,next)=>{
-//   let managerCount = 0;
-//   Employee.findAll({
-//   })
-//     .then((employees)=>{
-//       let mgmtArr = []
-//       employees.forEach((employee)=>{
-//         if(!mgmtArr.includes(employee.managerId) && employee.managerId){
-//           mgmtArr.push(employee.managerId)
-//           managerCount++
-//         } 
-//       })
-//       res.locals.path = req.url;
-//       res.locals.managerCount = managerCount;
-//       res.locals.employeeCount = employees.length;
-//       next();
-//     })
-// })
-
 router.use((req,res,next)=>{
   let managerCount = 0;
   Employee.findAll({
@@ -28,7 +9,6 @@ router.use((req,res,next)=>{
   })
   .then((employees)=>{
     employees.forEach((employee)=>{
-      console.log(employee.direct.length)
       if(employee.direct.length){
         employee.direct.push(employee.email)
         managerCount++

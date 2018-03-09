@@ -44,12 +44,12 @@
     </form>
     <br />
     {% if employee.direct.length %}
-   {{employee.email}} manages:
+   {{employee.name}} manages:
     {% endif %}
     {% for e in employees %}
     {% if e.managerId === employee.id %}
     <br />
-    <span class='badge badge-success'>{{e.email}}</span>
+    <span class='badge badge-success'>{{e.name}}</span>
     {% endif %}
     {% endfor %}
   </div>
